@@ -1,3 +1,5 @@
 /.idea
 *~
 *.pyc
+.sass-cache
+static-coffee/build

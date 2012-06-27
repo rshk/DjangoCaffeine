@@ -8,6 +8,7 @@ $margin: 5px;
 
 #test-div-scss {
   border: solid 1px $border_color;
+  background: #fee;
   padding: $padding;
   margin: $margin;
 }

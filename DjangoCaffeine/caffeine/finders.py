@@ -3,6 +3,10 @@
 :created: 6/28/12 12:02 AM
 """
 
+## todo: add support for coffeescript
+## todo: add support collecting static files -> implement listing!
+## todo: implement other methods too..
+
 from django.contrib.staticfiles.finders import BaseFinder
 from django.core.exceptions import SuspiciousOperation
 from django.core.files.base import File
@@ -50,6 +54,7 @@ class CoffeeAppStaticStorage(FileSystemStorage):
             'dest': _buildfile,
             'destdir': os.path.dirname(_buildfile),
             }
+
         try:
             os.makedirs(ctx['destdir']) # make sure destination directory exists
         except OSError, e:
@@ -57,7 +62,13 @@ class CoffeeAppStaticStorage(FileSystemStorage):
                 pass
             else:
                 raise
-        subprocess.call(list([x % ctx for x in settings.CAFFEINE_SCSS_COMPILER]))
+
+        if _sourcefile.endswith('.scss'):
+            subprocess.call(list([x % ctx for x in settings.CAFFEINE_SCSS_COMPILER]))
+        elif _sourcefile.endswith('.coffee'):
+            subprocess.call(list([x % ctx for x in settings.CAFFEINE_COFFEE_COMPILER]))
+        else:
+            raise ValueError("Unsupported file type (cannot compile)")
         return _buildfile
 
     def _open(self, name, mode='rb'):
@@ -89,7 +100,7 @@ class CoffeeAppStaticStorage(FileSystemStorage):
         if name.endswith('.css'):
             name = name[:-4] + ".scss"
         elif name.endswith('.js'):
-            name = name[:-4] + ".coffee"
+            name = name[:-3] + ".coffee"
         return name
 
     def path(self, name, base=None):
