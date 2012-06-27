@@ -79,7 +79,9 @@ STATICFILES_DIRS = (
 # various locations.
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
+    'caffeine.finders.AppDirectoriesCoffeeFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
@@ -121,6 +123,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'caffeine',
+    'testapp',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -155,3 +159,7 @@ LOGGING = {
         },
     }
 }
+
+## Django-Caffeine
+CAFFEINE_SCSS_COMPILER = ["/usr/bin/scss", "%(src)s", "%(dest)s"]
+CAFFEINE_COFFEE_COMPILER = [os.path.expanduser("~/bin/coffee"), "-o", "%(destdir)s", "-c", "%(src)s"]

@@ -1,0 +1,13 @@
+/**
+SCSS file
+**/
+
+$border_color: #f00;
+$padding: 5px;
+$margin: 5px;
+
+#test-div-scss {
+  border: solid 1px $border_color;
+  padding: $padding;
+  margin: $margin;
+}
