@@ -3,3 +3,4 @@
 *.pyc
 .sass-cache
 static-coffee/build
+/DjangoCaffeine/testapp/static-coffee/build/
